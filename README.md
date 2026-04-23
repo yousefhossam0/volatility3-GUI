@@ -38,12 +38,12 @@ more details.
     vol -f /home/user/samples/stuxnet.vmem windows.info
     ```
     ----------------------------------------------------------------------------------------------------------
-   4. To run the GUI Version , run `py volgui.py`:
+4. To run the GUI Version , run `py volgui.py`:
 
     ```shell
     volgui.py
     ```
-
+---------------------------------------------------------------------------------------------------------------
 5. Run some other plugins. The `-f` or `--single-location` is not strictly required, but most plugins expect a single sample.
 Some also require/accept other options.  Run `vol <plugin> -h` for more information on a particular command.
 
