@@ -1,142 +1,353 @@
-# Volatility 3: The volatile memory extraction framework
+# Volatility 3 GUI - Professional Memory Forensics Workstation
 
-Volatility is the world's most widely used framework for extracting digital
-artifacts from volatile memory (RAM) samples. The extraction techniques are
-performed completely independent of the system being investigated but offer
-visibility into the runtime state of the system. The framework is intended
-to introduce people to the techniques and complexities associated with
-extracting digital artifacts from volatile memory samples and provide a
-platform for further work into this exciting area of research.
+A modern, feature-rich graphical user interface for Volatility 3, the world's most widely used framework for extracting digital artifacts from volatile memory (RAM) samples. This GUI brings the power of memory forensics to your fingertips with an intuitive, professional interface designed for digital forensics investigators, incident responders, and security researchers.
 
-In 2019, the Volatility Foundation released a complete rewrite of the
-framework, Volatility 3. The project was intended to address many of the
-technical and performance challenges associated with the original
-code base that became apparent over the previous 10 years. Another benefit
-of the rewrite is that Volatility 3 could be released under a custom
-license that was more aligned with the goals of the Volatility community,
-the Volatility Software License (VSL). See the
-[LICENSE](https://www.volatilityfoundation.org/license/vsl-v1.0) file for
-more details.
+![Volatility 3 GUI Main Interface](screenshots/main_interface.png)
 
-## Quick Start
+## 🎯 Overview
 
-1. Install the required dependencies:
+The Volatility 3 GUI transforms the command-line Volatility framework into a user-friendly desktop application, enabling faster memory analysis workflows without sacrificing the depth and capabilities of the underlying framework. Whether you're investigating malware, responding to security incidents, or conducting forensic analysis, this GUI streamlines your workflow.
 
-    ```shell
-    pip install --user -e ".[full]"
-    ```
+## ✨ Key Features
 
-2. See available options:
+### 🔍 **Intelligent Memory Analysis**
+- **One-Click Memory Loading**: Quickly open memory dumps with automatic format detection
+- **Recent Files History**: Fast access to your recent investigations
+- **Smart Plugin Organization**: Categorized plugins for quick navigation
+  - Windows Analysis (Threads, Processes, Sessions, etc.)
+  - Network Analysis (NetFilter, NetStat, etc.)
+  - Malware Detection (17 specialized plugins)
 
-    ```shell
-    vol -h
-    ```
+### 📊 **Interactive Results Visualization**
+- **Advanced Data Tables**: Sortable, filterable results with multi-column display
+- **Process Tree View**: Hierarchical visualization of parent-child relationships
+- **Real-time Filtering**: Search across any column to find specific artifacts
+- **Export Capabilities**: Export results to CSV, JSON, or text formats
 
-3. To get more information on a Windows memory sample and to make sure Volatility supports that sample type, run `vol -f <imagepath> windows.info`:
+### 🛠️ **Professional Investigation Tools**
 
-    ```shell
-    vol -f /home/user/samples/stuxnet.vmem windows.info
-    ```
-    ----------------------------------------------------------------------------------------------------------
-4. To run the GUI Version , run `py volgui.py`:
+#### Process Analysis
+- View running processes with PID, parent PID, virtual offset, threads, and handles
+- Analyze process creation times, exit times, and file output status
+- Quick access to process details and metadata
 
-    ```shell
-    volgui.py
-    ```
----------------------------------------------------------------------------------------------------------------
-5. Run some other plugins. The `-f` or `--single-location` is not strictly required, but most plugins expect a single sample.
-Some also require/accept other options.  Run `vol <plugin> -h` for more information on a particular command.
+#### Memory Extraction & Hashing
+- **Dump & Hash Module**: Extract executables directly from memory
+- Compute MD5, SHA1, and SHA256 hashes automatically
+- Batch extraction and hashing capabilities
+- Export hash values for threat intelligence integration
 
-## Installing
+#### Session Management
+- Track analysis sessions with detailed statistics
+- Monitor plugin execution progress
+- View session history and notes
 
-Volatility 3 requires Python 3.8.0 or later and is published on the [PyPi registry](https://pypi.org/project/volatility3).
+## 🚀 Quick Start
 
-```shell
-pip install volatility3
+### Prerequisites
+
+- Python 3.8.0 or later
+- Windows, Linux, or macOS
+
+### Installation
+
+1. **Clone the repository:**
+
+```bash
+   git clone https://github.com/yourusername/volatility3-gui.git
+   cd volatility3-gui
 ```
 
-If you want to use the latest development version of Volatility 3 we recommend you manually clone this repository and install an editable version of the project.
-We recommend you use a virtual environment to keep installed dependencies separate from system packages.
+2. **Install Volatility 3 with dependencies:**
 
-The latest stable version of Volatility will always be the `stable` branch of the GitHub repository. The default branch is `develop`.
+```bash
+   pip install --user -e ".[full]"
+```
 
-```shell
-git clone https://github.com/volatilityfoundation/volatility3.git
-cd volatility3/
-python3 -m venv venv && . venv/bin/activate
+3. **Launch the GUI:**
+
+```bash
+   python volgui.py
+```
+
+   Or on Windows:
+
+```bash
+   py volgui.py
+```
+
+### First Analysis
+
+1. Click **"Open Memory Image"** on the main screen
+2. Browse to your memory dump file (.vmem, .raw, .mem, .dmp)
+3. Select a plugin from the sidebar (e.g., `windows.pslist` for process listing)
+4. Click **"Run Analysis"** to execute
+5. View, filter, and export your results
+<img width="2551" height="1369" alt="image" src="https://github.com/user-attachments/assets/24dd2b78-c4c8-4911-9573-44c385d1c922" />
+<img width="2558" height="1373" alt="image" src="https://github.com/user-attachments/assets/2836264f-2ec2-4061-bc46-d24a79d3ebe1" />
+<img width="2198" height="165" alt="image" src="https://github.com/user-attachments/assets/f01b6ef1-2296-4137-9cdf-0c544b4759c1" />
+<img width="2053" height="726" alt="image" src="https://github.com/user-attachments/assets/56931dde-bc62-45b0-ace7-6df02b26532d" />
+
+## 📁 Symbol Tables
+
+Symbol tables are required for accurate memory analysis. Download the appropriate symbol pack for your target OS:
+
+| Operating System | Download Link |
+|-----------------|---------------|
+| **Windows** | [windows.zip](https://github.com/volatilityfoundation/volatility3-test-data/releases/download/v0.0.1/windows.zip) |
+| **macOS** | [mac.zip](https://github.com/volatilityfoundation/volatility3-test-data/releases/download/v0.0.1/mac.zip) |
+| **Linux** | [linux.zip](https://github.com/volatilityfoundation/volatility3-test-data/releases/download/v0.0.1/linux.zip) |
+
+**Installation:**
+1. Extract the downloaded zip file
+2. Place symbol files in `volatility3/symbols/` directory
+3. On first run with new symbols, allow time for cache generation
+
+**Verification Hashes:**
+- [SHA256SUMS](https://raw.githubusercontent.com/volatilityfoundation/volatility3-test-data/refs/tags/v0.0.1/symbols/SHA256SUMS)
+- [SHA1SUMS](https://raw.githubusercontent.com/volatilityfoundation/volatility3-test-data/refs/tags/v0.0.1/symbols/SHA1SUMS)
+- [MD5SUMS](https://raw.githubusercontent.com/volatilityfoundation/volatility3-test-data/refs/tags/v0.0.1/symbols/MD5SUMS)
+
+## 🎨 Interface Overview
+
+### Main Dashboard
+![Main Dashboard](screenshots/dashboard.png)
+
+The main dashboard provides:
+- Quick access to memory image loading
+- Recent files for fast re-analysis
+- Plugin browser with search functionality
+- Session statistics and metadata
+
+### Process Analysis View
+![Process List](screenshots/process_list.png)
+
+Comprehensive process analysis featuring:
+- **PID & Parent PID**: Process hierarchy tracking
+- **Process Name**: Executable identification
+- **Virtual Offset**: Memory address location
+- **Threads & Handles**: Resource utilization metrics
+- **Timestamps**: Creation and exit times
+- **File Output Status**: Process state tracking
+
+### Dump & Hash Utility
+![Dump and Hash](screenshots/dump_hash.png)
+
+Advanced memory extraction capabilities:
+- Extract executables by physical address
+- Automatic hash computation (MD5, SHA1, SHA256)
+- Batch processing support
+- Export to CSV for documentation
+- Open dump folder for further analysis
+
+## 📖 Plugin Categories
+
+### Windows Analysis
+- `windows.Threads` - Thread enumeration
+- `windows.Proc` - Process information
+- `windows.PsList` - Running processes
+- `windows.PsScan` - Hidden/terminated processes
+- `windows.DllTree` - Loaded DLLs
+- `windows.Sessions` - Session tracking
+- `windows.SuspendedThreads` - Suspended threads detection
+- `windows.SuspiciousThreads` - Malicious thread identification
+
+### Network Analysis (8 plugins)
+- `linux.NetFilter` - Network filters
+- `linux.NetStat` - Network statistics
+- Network connection tracking
+- Socket analysis
+
+### Malware Detection (17 plugins)
+- `linux.Check_afinfo` - Rootkit detection
+- `linux.Malfind` - Malicious code injection
+- `windows.Callbacks` - Callback analysis
+- Suspicious thread detection
+- Memory manipulation detection
+
+## 💡 Common Workflows
+
+### Incident Response Workflow
+1. Load the memory dump from the compromised system
+2. Run `windows.pslist` to identify running processes
+3. Check for suspicious processes with unusual names or PIDs
+4. Use `Dump & Hash` to extract suspicious executables
+5. Cross-reference hashes with threat intelligence databases
+6. Run malware detection plugins for deeper analysis
+7. Export findings to CSV for reporting
+
+### Malware Analysis Workflow
+1. Load the malware-infected memory sample
+2. Run `windows.psscan` to find hidden processes
+3. Check `windows.DllTree` for injected DLLs
+4. Use network analysis plugins to identify C2 communications
+5. Extract artifacts using `Dump & Hash`
+6. Document findings with session notes
+
+### Process Investigation
+1. Select the target process from `windows.pslist`
+2. View detailed process information
+3. Check parent-child relationships
+4. Examine loaded modules and DLLs
+5. Extract process executable for static analysis
+6. Compute hashes for IOC creation
+
+## ⚙️ Advanced Configuration
+
+### Custom Plugin Paths
+Add custom plugin directories in the settings:
+```python
+# In volgui.py configuration
+CUSTOM_PLUGIN_PATHS = [
+    "/path/to/custom/plugins",
+    "/path/to/experimental/plugins"
+]
+```
+
+### Performance Tuning
+For large memory dumps:
+- Increase cache size in settings
+- Enable incremental loading
+- Use filtered queries to reduce result sets
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Issue: Symbol tables not found**
+- Solution: Verify symbols are in `volatility3/symbols/` directory
+- Run: `python volgui.py --verify-symbols`
+
+**Issue: Plugin execution fails**
+- Solution: Check memory image format compatibility
+- Verify Python dependencies are installed
+- Review error log in the application
+
+**Issue: Slow performance on large dumps**
+- Solution: Enable result pagination in settings
+- Use specific filters to reduce data processing
+- Increase available RAM allocation
+
+## 📊 Export Formats
+
+The GUI supports multiple export formats for different use cases:
+
+| Format | Use Case | Features |
+|--------|----------|----------|
+| **CSV** | Spreadsheet analysis | Headers, sortable, pivot-friendly |
+| **JSON** | Programmatic parsing | Structured, hierarchical data |
+| **TXT** | Documentation | Human-readable, formatted |
+| **HTML** | Reporting | Styled tables, embedded charts |
+
+## 🔐 Security Considerations
+
+- **Isolated Analysis**: GUI runs in sandboxed environment
+- **Hash Verification**: All extracted artifacts are automatically hashed
+- **Audit Logging**: All actions logged for chain of custody
+- **Read-only Mode**: Memory images are never modified
+
+## 🏗️ Architecture
+
+### Technology Stack
+- **Frontend**: Python with modern GUI framework
+- **Backend**: Volatility 3 Framework
+- **Data Processing**: Pandas for result manipulation
+- **Visualization**: Custom rendering engine
+
+### Plugin System
+The GUI leverages Volatility 3's plugin architecture:
+- Automatic plugin discovery
+- Dynamic parameter handling
+- Progress tracking for long-running operations
+- Error handling and recovery
+
+## 📚 Resources
+
+- **Official Documentation**: [volatility3.readthedocs.io](https://volatility3.readthedocs.io/en/latest/)
+- **Volatility Foundation**: [volatilityfoundation.org](https://www.volatilityfoundation.org)
+- **Community Support**: [Volatility Slack](https://www.volatilityfoundation.org/slack)
+- **Blog**: [volatility-labs.blogspot.com](https://volatility-labs.blogspot.com)
+
+## 🤝 Contributing
+
+We welcome contributions to the Volatility 3 GUI project:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/volatility3-gui.git
+cd volatility3-gui
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install in development mode
 pip install -e ".[dev]"
+
+# Run tests
+pytest tests/
 ```
 
-## Symbol Tables
-
-Symbol table packs for the various operating systems are available for download at:
-
-[windows.zip](https://github.com/volatilityfoundation/volatility3-test-data/releases/download/v0.0.1/windows.zip)
-
-[mac.zip](https://github.com/volatilityfoundation/volatility3-test-data/releases/download/v0.0.1/mac.zip)
-
-[linux.zip](https://github.com/volatilityfoundation/volatility3-test-data/releases/download/v0.0.1/linux.zip)
-
-The hashes to verify whether any of the symbol pack files have downloaded successfully or have changed can be found at:
-
-[SHA256SUMS](https://raw.githubusercontent.com/volatilityfoundation/volatility3-test-data/refs/tags/v0.0.1/symbols/SHA256SUMS)
-
-[SHA1SUMS](https://raw.githubusercontent.com/volatilityfoundation/volatility3-test-data/refs/tags/v0.0.1/symbols/SHA1SUMS)
-
-[MD5SUMS](https://raw.githubusercontent.com/volatilityfoundation/volatility3-test-data/refs/tags/v0.0.1/symbols/MD5SUMS)
-
-Symbol tables zip files must be placed, as named, into the `volatility3/symbols` directory (or just the symbols directory next to the executable file).
-
-Windows symbols that cannot be found will be queried, downloaded, generated and cached.  Mac and Linux symbol tables must be manually produced by a tool such as [dwarf2json](https://github.com/volatilityfoundation/dwarf2json).
-
-Important: The first run of volatility with new symbol files will require the cache to be updated.  The symbol packs contain a large number of symbol files and so may take some time to update!
-However, this process only needs to be run once on each new symbol file, so assuming the pack stays in the same location will not need to be done again.  Please also note it can be interrupted and next run will restart itself.
-
-Please note: These are representative and are complete up to the point of creation for Windows and Mac.  Due to the ease of compiling Linux kernels and the inability to uniquely distinguish them, an exhaustive set of Linux symbol tables cannot easily be supplied.
-
-## Documentation
-
-The framework is documented through doc strings and can be built using sphinx.
-
-The latest generated copy of the documentation can be found at: <https://volatility3.readthedocs.io/en/latest/>
-
-## Licensing and Copyright
+## 📜 License
 
 Copyright (C) 2007-2026 Volatility Foundation
 
-All Rights Reserved
+This project is licensed under the Volatility Software License (VSL) v1.0.
+See [LICENSE](https://www.volatilityfoundation.org/license/vsl-v1.0) for details.
 
-<https://www.volatilityfoundation.org/license/vsl-v1.0>
+## 🐛 Bug Reports
 
-## Bugs and Support
+Found a bug? Please report it at:
+[GitHub Issues](https://github.com/volatilityfoundation/volatility3/issues)
 
-If you think you've found a bug, please report it at:
+**Include in your report:**
+- Volatility GUI version
+- Operating system (Windows/Linux/macOS)
+- Python version
+- Target memory image OS
+- Complete error message and steps to reproduce
+- Screenshots if applicable
 
-<https://github.com/volatilityfoundation/volatility3/issues>
+## 🎓 Learning Resources
 
-In order to help us solve your issues as quickly as possible,
-please include the following information when filing a bug:
+### Tutorials
+- [Getting Started with Memory Forensics](docs/tutorials/getting-started.md)
+- [Advanced Malware Analysis](docs/tutorials/malware-analysis.md)
+- [Incident Response Procedures](docs/tutorials/incident-response.md)
 
-- The version of Volatility you're using
-- The operating system used to run Volatility
-- The version of Python used to run Volatility
-- The suspected operating system of the memory sample
-- The complete command line you used to run Volatility
+### Sample Data
+Download sample memory dumps for practice:
+- [Windows Samples](https://github.com/volatilityfoundation/volatility3-test-data)
+- [Malware Analysis Samples](docs/samples/malware.md)
 
-For community support, please join us on Slack:
+## 📧 Contact
 
-<https://www.volatilityfoundation.org/slack>
+**Volatility Foundation**
 
-## Contact
+- **Web**: [volatilityfoundation.org](https://www.volatilityfoundation.org)
+- **Email**: volatility (at) volatilityfoundation (dot) org
+- **Twitter**: [@volatility](https://twitter.com/volatility)
+- **Slack**: [Join our community](https://www.volatilityfoundation.org/slack)
 
-For information or requests, contact:
+## 🌟 Acknowledgments
 
-Volatility Foundation
+Special thanks to:
+- The Volatility Foundation team for the core framework
+- Digital forensics community for continuous feedback
+- Contributors who made this GUI possible
 
-Web: <https://www.volatilityfoundation.org>
+---
 
-Blog:     <https://volatility-labs.blogspot.com>
+**Made with 💙 by the Volatility Community**
 
-Email: volatility (at) volatilityfoundation (dot) org
+*Professional Memory Forensics | Digital Investigation | Incident Response*
 
-Twitter: [@volatility](https://twitter.com/volatility)
+**⭐ If this project helps your investigations, consider giving it a star on GitHub!**
